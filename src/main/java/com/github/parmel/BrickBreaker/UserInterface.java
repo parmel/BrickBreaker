@@ -1,3 +1,5 @@
+package com.github.parmel.BrickBreaker;
+
 /**
  * Created by Grigor Yosifov on 5/15/2014.
  */

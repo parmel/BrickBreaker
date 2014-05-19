@@ -1,3 +1,5 @@
+package com.github.parmel.BrickBreaker;
+
 import java.util.Scanner;
 
 /**

@@ -1,3 +1,5 @@
+package com.github.parmel.BrickBreaker;
+
 /**
  * Created by sobieski on 5/18/14.
  */

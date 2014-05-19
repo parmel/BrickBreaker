@@ -2,20 +2,24 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.parmel</groupId>
-  <artifactId>brickbreaker</artifactId>
-  <version>1.0.0</version>
+  <groupId>com.github.parmel.BrickBreaker</groupId>
+  <artifactId>BrickBreaker</artifactId>
+  <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>BreakBreaker</name>
+  <name>BrickBreaker</name>
+  <description>BrickBreaker SoftUni Edition</description>
   <url>http://github.com/parmel/BrickBreaker</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
   <dependencies>
     <dependency>
       <groupId>com.googlecode.lanterna</groupId>
       <artifactId>lanterna</artifactId>
       <version>2.1.7</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

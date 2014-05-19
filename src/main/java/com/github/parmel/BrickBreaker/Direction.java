@@ -1,3 +1,5 @@
+package com.github.parmel.BrickBreaker;
+
 /**
  * Created by Emrah Bekir on 5/18/14.
  */
