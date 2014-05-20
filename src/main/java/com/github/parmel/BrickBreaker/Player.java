@@ -1,5 +1,8 @@
 package com.github.parmel.BrickBreaker;
 
+import com.googlecode.lanterna.input.Key;
+import com.googlecode.lanterna.terminal.Terminal;
+
 import java.util.Scanner;
 
 /**
@@ -25,10 +28,10 @@ public class Player implements  MovebleITems{
     }
 
     private int length;
-    private Scanner input;
+    private Terminal input;
 
     //TODO: add terminal to read input
-    public Player(int maxX,int maxY, int length, Scanner input) {
+    public Player(int maxX,int maxY, int length, Terminal input) {
         this.length = length;
         this.maxX = maxX;
         this.x = (maxX / 2) - (length / 2);
@@ -40,14 +43,21 @@ public class Player implements  MovebleITems{
     @Override
     public void move() {
         //TODO: add correct move implementation
-        String nextline = this.input.nextLine();
+        Key key = this.input.readInput();
 
-        if(nextline.equals("a")){
-            this.setX(this.getX() - 1);
-        }
-        else if(nextline.equals("d")){
-            this.setX(this.getX() + 1);
-        }
+        	if (key != null) {
+        		if (key.getKind().equals(Key.Kind.ArrowLeft)) {
+                    this.setX(this.getX() - 1);
+        		} else if (key.getKind().equals(Key.Kind.ArrowRight) ) {
+                    this.setX(this.getX() + 1);
+        		}
+        	}
+//        if(nextline.equals("a")){
+//            this.setX(this.getX() - 1);
+//        }
+//        else if(nextline.equals("d")){
+//            this.setX(this.getX() + 1);
+//        }
         //if has input
         //choose left or right
         //this.getX() + 1 to move right
