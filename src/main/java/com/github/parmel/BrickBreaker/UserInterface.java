@@ -1,6 +1,7 @@
 package com.github.parmel.BrickBreaker;
 
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.terminal.Terminal;
@@ -28,6 +29,7 @@ public class UserInterface {
 	public void render(byte[][] uiData, Status status) {
 		redrawChangedUiData(uiData);
 		redrawStatus(status);
+		//printDebug(uiData);
 	}
 
 	public Terminal getTerminal() {
@@ -90,6 +92,8 @@ public class UserInterface {
 				}
 			}
 		}
+		//byte[][] this.previousUiData = uiData;
+		previousUiData = deepCopy(uiData);
 	}
 	
 	private void redrawStatus(Status status) {
@@ -109,5 +113,26 @@ public class UserInterface {
 		terminal.putCharacter(Pixel.getFirstCharacter(pixelCode));
 		terminal.putCharacter(Pixel.getSecondCharacter(pixelCode));
 	}
+	
+	public static byte[][] deepCopy(byte[][] original) {
+	    if (original == null) {
+	        return null;
+	    }
+
+	    final byte[][] result = new byte[original.length][];
+	    for (int i = 0; i < original.length; i++) {
+	        result[i] = Arrays.copyOf(original[i], original[i].length);
+	    }
+	    return result;
+	}
+
+    private static void printDebug(byte[][] field) {
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[i].length; j++) {
+                System.out.print(field[i][j]);
+            }
+            System.out.println();
+        }
+    }
 
 }
