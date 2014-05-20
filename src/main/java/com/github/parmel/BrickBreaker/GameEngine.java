@@ -12,15 +12,31 @@ import java.util.Scanner;
 public class GameEngine {
     public static void main(String[] args) {
 
-
-
-//      System.out.println();
-//        int[][] arr = {
+//    	/*
+//    	 * BOF UI Test
+//    	 */
+//
+//    	/*
+//    	 * Array legend:
+//    	 * 
+//    	 * Signed bytes - special meaning
+//    	 * 		-1 - ball
+//    	 * 		-2 - springboard
+//    	 *  
+//    	 * Unsigned bytes - bricks (byte number is equal to remaining hits)
+//    	 * 		1 - green
+//    	 * 		2 - cyan
+//    	 * 		3 - magenta
+//    	 * 		4 - yellow
+//    	 * 		5 - red
+//    	 */
+//    	byte[][] uiTestArr = {
+//                {0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0},
+//                {0,1,1,0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0},
+//                {0,0,0,1,1,0,0,1,1,0,0,0,2,2,0,0,0,3,3,0},
+//                {0,0,0,2,2,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0},
+//                {0,0,0,0,0,4,4,0,0,0,0,0,0,0,0,4,0,4,0,0},
 //                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//                {0,5,5,0,0,5,5,0,0,0,0,0,0,0,0,15,15,0,0,0},
-//                {0,0,0,5,5,0,0,5,5,0,0,0,10,10,0,0,0,15,15,0},
-//                {0,0,0,10,10,0,0,0,0,10,10,0,0,0,0,0,0,0,0,0},
-//                {0,0,0,0,0,20,20,0,0,0,0,0,0,0,0,20,0,20,0,0},
 //                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 //                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 //                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -32,23 +48,40 @@ public class GameEngine {
 //                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 //                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 //                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+//                {0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0},
 //                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//                {0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
-//                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//                {0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0},
+//                {0,0,0,0,0,0,0,-2,-2,-2,-2,0,0,0,0,0,0,0,0,0},
 //        };
+//
+//		// Initiate new UI object and set width to 20 and height to 20
+//    	UserInterface UI = new UserInterface(20, 20);
+//    	
+//    	// Render the test array
+//    	UI.render(uiTestArr);
+//    	
+//    	// Get terminal
+//    	Terminal terminal = UI.getTerminal();
+//    	
+//    	/*
+//    	 * EOF UI Test
+//    	 */
 
-        int[][] testArr = {
+        byte[][] testArr = {
                 {0,0,1,1,0,0},
                 {0,0,0,0,0,0},
                 {0,0,0,0,0,0},
                 {0,0,0,0,0,0},
         };
 
+		// Initiate new UI object and set width to 6 and height to 4
+    	UserInterface UI = new UserInterface(6, 4);
 
+    	// Get terminal
+    	Terminal terminal = UI.getTerminal();
+    	
         Scanner input = new Scanner(System.in);
         // public Player(int maxX,int maxY, int length, Scanner input)
-       Player player = new Player(testArr[0].length, testArr.length, 2, input);
+        Player player = new Player(testArr[0].length, testArr.length, 2, input);
 
         // public Ball(int y, Direction direction, int x)
         Ball ball = new Ball(testArr[0].length , testArr.length, Direction.upRight);
@@ -56,17 +89,35 @@ public class GameEngine {
         //Field(int rows, int cols, Player player, Ball ball)
 
         Field field = new Field(testArr, player, ball);
+        
+        Points points = new Points();
+        
+    	// Render the test array
+    	UI.render(field.getField(), points);
 
-        print(field.getField());
         while(true){
-            player.move();
-            ball.move();
-            field.nextMove(player, ball);
-            print(field.getField());
+        	// BOF get key code example
+    		Key key = terminal.readInput();
+        	if (key != null) {
+        		if (key.getCharacter() == 'a') {
+        			System.out.print("a");
+        		} else if (key.getKind().equals(Key.Kind.ArrowRight) ) {
+        			System.out.print("R");
+        		}
+        	}
+        	// EOF get key code example
+
+//			  // This code is commented temporarily in order for the terminal keys
+//			  // example to work
+//            player.move();
+//            ball.move();
+//            field.nextMove(player, ball);
+//            points.set(points.get() + 1);
+//            UI.render(field.getField(), points);
         }
     }
 
-    private static void print(int[][] field) {
+    private static void print(byte[][] field) {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
                 System.out.print(field[i][j]);

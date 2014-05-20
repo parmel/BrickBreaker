@@ -4,33 +4,33 @@ package com.github.parmel.BrickBreaker;
  * Created by sobieski on 5/18/14.
  */
 public class Field {
-    public int[][] getField() {
+    public byte[][] getField() {
         return field;
     }
 
-    private int field[][];
+    private byte[][] field;
     private int ballLastYX[];
     private int playerLastYX[];
     private int playerLength;
-    public static final int BALL_INITIALS = 5;
-    public static final int PLAYER_INITIALS = 1;
+    public static final byte BALL_INITIALS = -1;
+    public static final byte PLAYER_INITIALS = -2;
 
     public Field(int rows, int cols, Player player, Ball ball) {
-        this.field = new int[rows][cols];
+        this.field = new byte[rows][cols];
         this.playerLength = player.getLength();
         addNewPleaces(player, ball);
         putInField(PLAYER_INITIALS, BALL_INITIALS);
     }
 
     //test constructor
-    public Field(int[][] field, Player player, Ball ball){
+    public Field(byte[][] field, Player player, Ball ball){
         this.field = field;
         this.playerLength = player.getLength();
         addNewPleaces(player, ball);
         putInField(PLAYER_INITIALS, BALL_INITIALS);
     }
 
-    private void putInField(int player, int ball) {
+    private void putInField(byte player, byte ball) {
         this.field[ballLastYX[0]][ballLastYX[1]] = ball;
         for (int i = playerLastYX[1]; i < playerLastYX[1] + playerLength; i++) {
             this.field[playerLastYX[0]][i] = player;
@@ -40,7 +40,7 @@ public class Field {
 
     public boolean nextMove(Player player, Ball ball) {
         //Clear old place of ball and player
-        putInField(0, 0);
+        putInField((byte)0, (byte)0);
         addNewPleaces(player, ball);
         putInField(PLAYER_INITIALS, BALL_INITIALS);
         boolean isBallOut = checkBall(ball);
