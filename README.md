@@ -35,7 +35,7 @@ http://www.brickbreaker.com/
 * Go to ``File -> Import...``, choose ``Maven -> Existing Maven Project`` and choose your cloned repository/ downloaded files
 
 ## Team (alphabetically)
-* Grigor - user interface and technical docs
 * Emrah - game logic
+* Grigor - user interface and technical docs
 * Samuil - website
 * Yuliyan - game story, user docs and website
