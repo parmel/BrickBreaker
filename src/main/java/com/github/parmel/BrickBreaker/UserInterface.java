@@ -25,9 +25,9 @@ public class UserInterface {
 	    initScreen();
 	}
 
-	public void render(byte[][] uiData, Points points) {
+	public void render(byte[][] uiData, Status status) {
 		redrawChangedUiData(uiData);
-		redrawPoints(points);
+		redrawStatus(status);
 	}
 
 	public Terminal getTerminal() {
@@ -92,11 +92,12 @@ public class UserInterface {
 		}
 	}
 	
-	private void redrawPoints(Points points) {
-		String result = String.format("Points: %d", points.get());
+	private void redrawStatus(Status status) {
+		String result = String.format("Points: %d | Lives: %d",
+				status.getPoints(), status.getLives());
 		this.terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
 		terminal.moveCursor(offsetX + 1, 1);
-		for (char ch: result.toCharArray()) {
+		for (char ch : result.toCharArray()) {
 			terminal.putCharacter(ch);
 		}
 	}

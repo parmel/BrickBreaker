@@ -90,10 +90,11 @@ public class GameEngine {
 
         Field field = new Field(testArr, player, ball);
         
-        Points points = new Points();
-        
+        // Initiate new Status instance with 0 points and 5 lives
+        Status status = new Status(0, 3);
+
     	// Render the test array
-    	UI.render(field.getField(), points);
+    	UI.render(field.getField(), status);
 
         while(true){
         	// BOF get key code example
@@ -112,7 +113,8 @@ public class GameEngine {
 //            player.move();
 //            ball.move();
 //            field.nextMove(player, ball);
-//            points.set(points.get() + 1);
+//            status.setPoints(status.getPoints() + 1);
+//            status.setLives(status.getLives() - 1);
 //            UI.render(field.getField(), points);
         }
     }
