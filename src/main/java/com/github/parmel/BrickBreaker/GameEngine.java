@@ -113,6 +113,13 @@ public class GameEngine {
 //            status.setPoints(status.getPoints() + 1);
 //            status.setLives(status.getLives() - 1);
 //            UI.render(field.getField(), points);
+            
+            // Sleep in order to maintain reasonable CPU load
+            try {
+                Thread.sleep(10);
+            } catch(InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
         }
     }
 
