@@ -22,24 +22,24 @@ public class Ball implements MovebleITems {
 
     @Override
     public void move() {
-//        switch (this.direction) {
-//            case upLeft:
-//                this.x--;
-//                this.y--;
-//                break;
-//            case upRight:
-//                this.x++;
-//                this.y--;
-//                break;
-//            case downLeft:
-//                this.x--;
-//                this.y++;
-//                break;
-//            case downRight:
-//                this.x++;
-//                this.y++;
-//                break;
-//        }
+        switch (this.direction) {
+            case upLeft:
+                this.x--;
+                this.y--;
+                break;
+            case upRight:
+                this.x++;
+                this.y--;
+                break;
+            case downLeft:
+                this.x--;
+                this.y++;
+                break;
+            case downRight:
+                this.x++;
+                this.y++;
+                break;
+        }
     }
 
     @Override

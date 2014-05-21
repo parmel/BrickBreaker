@@ -16,15 +16,15 @@ public class Pixel {
 		case -2:
 			// springboard
 			return Terminal.Color.RED;
-		case 1:
-			return Terminal.Color.GREEN;
-		case 2:
-			return Terminal.Color.CYAN;
-		case 3:
-			return Terminal.Color.MAGENTA;
-		case 4:
-			return Terminal.Color.YELLOW;
 		case 5:
+			return Terminal.Color.GREEN;
+		case 10:
+			return Terminal.Color.CYAN;
+		case 15:
+			return Terminal.Color.MAGENTA;
+		case 20:
+			return Terminal.Color.YELLOW;
+		case 25:
 			return Terminal.Color.RED;
 		default:
 			return Terminal.Color.DEFAULT;

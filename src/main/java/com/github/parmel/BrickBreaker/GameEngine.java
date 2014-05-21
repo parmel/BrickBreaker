@@ -26,28 +26,7 @@ public class GameEngine {
 //    	 * 		4 - yellow
 //    	 * 		5 - red
 //    	 */
-    	byte[][] testArr = {
-                {0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0},
-                {0,1,1,0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0},
-                {0,0,0,1,1,0,0,1,1,0,0,0,2,2,0,0,0,3,3,0},
-                {0,0,0,2,2,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,4,4,0,0,0,0,0,0,0,0,4,0,4,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,-2,-2,-2,-2,0,0,0,0,0,0,0,0,0},
-        };
+
 //
 //		// Initiate new UI object and set width to 20 and height to 20
 //    	UserInterface UI = new UserInterface(20, 20);
@@ -62,12 +41,12 @@ public class GameEngine {
 //    	 * EOF UI Test
 //    	 */
 
-//        byte[][] testArr = {
-//                {0, 0, 1, 1, 0, 0},
-//                {0, 0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0, 0},
-//        };
+        byte[][] testArr = {
+                {0, 0, 1, 1, 0, 0},
+                {0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0},
+        };
 
         // Initiate new UI object and set width to 6 and height to 4
         UserInterface UI = new UserInterface(testArr[0].length, testArr.length);
@@ -76,7 +55,7 @@ public class GameEngine {
         Terminal terminal = UI.getTerminal();
 
         // public Player(int maxX,int maxY, int length, Scanner input)
-        Player player = new Player(testArr[0].length, testArr.length, 2, terminal);
+        Player player = new Player(testArr[0].length, testArr.length, 5, terminal);
 
         // public Ball(int y, Direction direction, int x)
         Ball ball = new Ball(testArr[0].length, testArr.length, Direction.upRight);
@@ -90,7 +69,7 @@ public class GameEngine {
 
         // Render the test array
         UI.render(field.getField(), status);
-
+        boolean isEndOfGame = true;
         while (true) {
             // BOF get key code example
 //    		Key key = terminal.readInput();
@@ -105,18 +84,26 @@ public class GameEngine {
 
 //			  // This code is commented temporarily in order for the terminal keys
 //			  // example to work
+
             player.move();
             ball.move();
-            field.nextMove(player, ball);
             UI.render(field.getField(), status);
-            int a;
+            UI.render(field.getField(), status);
+            UI.render(field.getField(), status);
+
+
+           if( !isEndOfGame){
+               System.out.println("End of game");
+           }
+            isEndOfGame = field.nextMove(player, ball);
+
 //            status.setPoints(status.getPoints() + 1);
 //            status.setLives(status.getLives() - 1);
 //            UI.render(field.getField(), points);
             
             // Sleep in order to maintain reasonable CPU load
             try {
-                Thread.sleep(10);
+                Thread.sleep(500);
             } catch(InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
