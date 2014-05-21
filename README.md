@@ -3,7 +3,7 @@ BrickBreaker
 
 BrickBreaker is console implementation of the popular old brick breaking game. It was build by the Parmel team as a homework for the Java Basics course at [SoftUni](https://softuni.bg/).
 
-## Download and Install
+## Download and Run
 
 ### Windows
 
@@ -11,7 +11,7 @@ BrickBreaker is console implementation of the popular old brick breaking game. I
 
 ### Linux, Mac OS X and other...
 
-* Download the [BrickBreaker.jar](#) and start it
+* Download the [BrickBreaker.jar](#) and start it ``java -jar BrickBreaker.jar``
 
 ## Gameplay
 
