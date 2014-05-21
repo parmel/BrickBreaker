@@ -30,11 +30,19 @@ public class Field {
         putInField(PLAYER_INITIALS, BALL_INITIALS);
     }
 
+    public int getPoints() {
+        int newPoints = points;
+        points = 0;
+        return newPoints;
+    }
+
     public boolean isBallOut() {
+
         return isBallOut;
     }
 
     public boolean isEndLevel() {
+
         return isEndLevel;
     }
 
@@ -57,23 +65,23 @@ public class Field {
         putInField(PLAYER_INITIALS, BALL_INITIALS);
         this.isBallOut = checkBall(ball);
         this.isEndLevel = checkIsClearSpace(this.field);
-        return isBallOut && isEndLevel;
+        return isBallOut || isEndLevel;
     }
 
     private boolean checkIsClearSpace(byte[][] field) {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[0].length; j++) {
                 if (field[i][j] > 0) {
-                    return true;
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 
     private boolean checkBall(Ball ball) {
         if (ballLastYX[0] == this.field.length - 1) {
-            return false;
+            return true;
         } else if (ballLastYX[0] == field.length - 2 && field[ballLastYX[0] + 1][ballLastYX[1]] == -2) {
             changeDir(ball);
         } else {
@@ -82,8 +90,8 @@ public class Field {
                     ballLastYX[1] == field[0].length - 1) {
                 changeDir(ball);
             } else if (ball.getDirection() == Direction.upRight) {
-                if (field[ballLastYX[0] + 1][ballLastYX[1] - 1] != 0) {
-                    field[ballLastYX[0] + 1][ballLastYX[1] - 1] -= 5;
+                if (field[ballLastYX[0] - 1][ballLastYX[1] + 1] != 0) {
+                    field[ballLastYX[0] - 1][ballLastYX[1] + 1] -= 5;
                     points += 5;
                     changeDir(ball);
                 }
@@ -108,7 +116,7 @@ public class Field {
             }
         }
 
-        return true;
+        return false;
     }
 
     private void changeDir(Ball ball) {

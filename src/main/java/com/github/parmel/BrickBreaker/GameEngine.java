@@ -6,8 +6,36 @@ import com.googlecode.lanterna.terminal.Terminal;
  * Created by Emrah on 5/15/2014.
  */
 public class GameEngine {
-    public static void main(String[] args) {
+    private static UserInterface UI;
 
+    // Get terminal
+    private static Terminal terminal;
+
+    // public Player(int maxX,int maxY, int length, Scanner input)
+    private static Player player;
+
+    // public Ball(int y, Direction direction, int x)
+    private static Ball ball;
+
+    //Field(int rows, int cols, Player player, Ball ball)
+
+    private static Field field;
+
+    // Initiate new Status instance with 0 points and 5 lives
+    private static Status status = new Status(0, 3);
+
+    private static void getFirstLevel() {
+        int firstLevel = 1;
+        byte[][] firstLevelField = GetNextLevel.getLevel(1);
+        UI = new UserInterface(firstLevelField[0].length, firstLevelField.length);
+        terminal = UI.getTerminal();
+        player = new Player(firstLevelField[0].length, firstLevelField.length, 5, firstLevel, terminal);
+        ball = new Ball(firstLevelField[0].length, firstLevelField.length, Direction.upRight);
+        field = new Field(firstLevelField, player, ball);
+    }
+
+    public static void main(String[] args) {
+        runEngine();
 //    	/*
 //    	 * BOF UI Test
 //    	 */
@@ -27,95 +55,57 @@ public class GameEngine {
 //    	 * 		5 - red
 //    	 */
 
-//
-//		// Initiate new UI object and set width to 20 and height to 20
-//    	UserInterface UI = new UserInterface(20, 20);
-//    	
-//    	// Render the test array
-//    	UI.render(uiTestArr);
-//    	
-//    	// Get terminal
-//    	Terminal terminal = UI.getTerminal();
-//    	
-//    	/*
-//    	 * EOF UI Test
-//    	 */
+    }
 
-        byte[][] testArr = {
-                {0, 0, 1, 1, 0, 0},
-                {0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0},
-        };
-
-        // Initiate new UI object and set width to 6 and height to 4
-        UserInterface UI = new UserInterface(testArr[0].length, testArr.length);
-
-        // Get terminal
-        Terminal terminal = UI.getTerminal();
-
-        // public Player(int maxX,int maxY, int length, Scanner input)
-        Player player = new Player(testArr[0].length, testArr.length, 5, terminal);
-
-        // public Ball(int y, Direction direction, int x)
-        Ball ball = new Ball(testArr[0].length, testArr.length, Direction.upRight);
-
-        //Field(int rows, int cols, Player player, Ball ball)
-
-        Field field = new Field(testArr, player, ball);
-
-        // Initiate new Status instance with 0 points and 5 lives
-        Status status = new Status(0, 3);
-
-        // Render the test array
+    public static void runEngine() {
+        getFirstLevel();
         UI.render(field.getField(), status);
         boolean isEndOfGame = true;
+        int ballSlower = 0;
         while (true) {
-            // BOF get key code example
-//    		Key key = terminal.readInput();
-//        	if (key != null) {
-//        		if (key.getCharacter() == 'a') {
-//        			System.out.print("a");
-//        		} else if (key.getKind().equals(Key.Kind.ArrowRight) ) {
-//        			System.out.print("R");
-//        		}
-//        	}
-            // EOF get key code example
-
-//			  // This code is commented temporarily in order for the terminal keys
-//			  // example to work
 
             player.move();
-            ball.move();
+            if (ballSlower++ == 10) {
+                ball.move();
+                ballSlower = 0;
+            }
             UI.render(field.getField(), status);
             UI.render(field.getField(), status);
             UI.render(field.getField(), status);
-
-
-           if( !isEndOfGame){
-               System.out.println("End of game");
-           }
             isEndOfGame = field.nextMove(player, ball);
+
+            if (isEndOfGame) {
+                System.out.println("End of game");
+                if (field.isEndLevel()) {
+                    startNextLevel(player.getLevel());
+                }
+                if (field.isBallOut()) {
+                    //TODO:add some end menu or something else
+                    ///remove lives
+                }
+            }
+            player.setPoints(player.getPoints() + field.getPoints());
+
 
 //            status.setPoints(status.getPoints() + 1);
 //            status.setLives(status.getLives() - 1);
 //            UI.render(field.getField(), points);
-            
+
             // Sleep in order to maintain reasonable CPU load
             try {
-                Thread.sleep(500);
-            } catch(InterruptedException ex) {
+                Thread.sleep(25);
+            } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
         }
     }
 
-    private static void print(byte[][] field) {
-        for (int i = 0; i < field.length; i++) {
-            for (int j = 0; j < field[i].length; j++) {
-                System.out.print(field[i][j]);
-            }
-            System.out.println();
-        }
+    private static void startNextLevel(int level) {
+        int nextLevel = level + 1;
+        byte[][] firstLevelField = GetNextLevel.getLevel(nextLevel);
+        ball = new Ball(firstLevelField[0].length, firstLevelField.length, Direction.upRight);
+        player.newCoordinatsOfPlayer(firstLevelField[0].length, firstLevelField.length, 5, nextLevel);
+        field = new Field(firstLevelField, player, ball);
+
     }
 }

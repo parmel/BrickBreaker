@@ -4,21 +4,24 @@ package com.github.parmel.BrickBreaker;
  * Created by sobieski on 5/18/14.
  */
 public class Ball implements MovebleITems {
-    public Direction getDirection() {
-        return direction;
-    }
-
     private Direction direction;
     private int x;
     private int y;
 
-    public Ball(int x,int y, Direction direction) {
+    public Ball(int x, int y, Direction direction) {
         this.y = y - 2;
         this.direction = direction;
         this.x = x / 2;
     }
 
+    public Direction getDirection() {
+        return direction;
+    }
 
+    @Override
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
 
     @Override
     public void move() {
@@ -45,10 +48,5 @@ public class Ball implements MovebleITems {
     @Override
     public int[] getYX() {
         return new int[]{this.y, this.x};
-    }
-
-    @Override
-    public void setDirection(Direction direction) {
-        this.direction = direction;
     }
 }
