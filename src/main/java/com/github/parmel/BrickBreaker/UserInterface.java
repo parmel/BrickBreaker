@@ -26,31 +26,20 @@ public class UserInterface {
         initScreen();
     }
 
-    public static byte[][] deepCopy(byte[][] original) {
-        if (original == null) {
-            return null;
-        }
-
-        final byte[][] result = new byte[original.length][];
-        for (int i = 0; i < original.length; i++) {
-            result[i] = Arrays.copyOf(original[i], original[i].length);
-        }
-        return result;
-    }
-
-    private static void printDebug(byte[][] field) {
-        for (int i = 0; i < field.length; i++) {
-            for (int j = 0; j < field[i].length; j++) {
-                System.out.print(field[i][j]);
-            }
-            System.out.println();
-        }
-    }
-
-    public void render(byte[][] uiData, Status status) {
+    public void render(byte[][] uiData, Player player) {
         redrawChangedUiData(uiData);
-        redrawStatus(status);
+        redrawStatus(player);
         //printDebug(uiData);
+    }
+
+    public void reset() {
+    	byte[][] uiData = new byte[this.height][this.width];
+        for (int h = 0; h < this.height; h++) {
+            for (int w = 0; w < this.width; w++) {
+            	uiData[h][w] = 0;
+            }
+        }
+        redrawChangedUiData(uiData);
     }
 
     public Terminal getTerminal() {
@@ -117,9 +106,9 @@ public class UserInterface {
         previousUiData = deepCopy(uiData);
     }
 
-    private void redrawStatus(Status status) {
+    private void redrawStatus(Player player) {
         String result = String.format("Points: %d | Lives: %d",
-                status.getPoints(), status.getLives());
+        		player.getPoints(), player.getLives());
         this.terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
         terminal.moveCursor(offsetX + 1, 1);
         for (char ch : result.toCharArray()) {
@@ -133,6 +122,27 @@ public class UserInterface {
         this.terminal.applyForegroundColor(Pixel.getForegroundColor(pixelCode));
         terminal.putCharacter(Pixel.getFirstCharacter(pixelCode));
         terminal.putCharacter(Pixel.getSecondCharacter(pixelCode));
+    }
+
+    private static byte[][] deepCopy(byte[][] original) {
+        if (original == null) {
+            return null;
+        }
+
+        final byte[][] result = new byte[original.length][];
+        for (int i = 0; i < original.length; i++) {
+            result[i] = Arrays.copyOf(original[i], original[i].length);
+        }
+        return result;
+    }
+
+    private static void printDebug(byte[][] field) {
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[i].length; j++) {
+                System.out.print(field[i][j]);
+            }
+            System.out.println();
+        }
     }
 
 }

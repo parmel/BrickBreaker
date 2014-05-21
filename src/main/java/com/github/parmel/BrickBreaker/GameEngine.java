@@ -18,11 +18,7 @@ public class GameEngine {
     private static Ball ball;
 
     //Field(int rows, int cols, Player player, Ball ball)
-
     private static Field field;
-
-    // Initiate new Status instance with 0 points and 5 lives
-    private static Status status = new Status(0, 3);
 
     private static void getFirstLevel() {
         int firstLevel = 1;
@@ -59,7 +55,7 @@ public class GameEngine {
 
     public static void runEngine() {
         getFirstLevel();
-        UI.render(field.getField(), status);
+        UI.render(field.getField(), player);
         boolean isEndOfGame = true;
         int ballSlower = 0;
         while (true) {
@@ -69,9 +65,7 @@ public class GameEngine {
                 ball.move();
                 ballSlower = 0;
             }
-            status.setLives(player.getLives());
-            status.setPoints(player.getPoints());
-            UI.render(field.getField(), status);
+            UI.render(field.getField(), player);
             isEndOfGame = field.nextMove(player, ball);
 
             if (isEndOfGame) {
@@ -83,9 +77,7 @@ public class GameEngine {
                     if(player.getLives() > 1){
                         player.setLives(player.getLives() - 1);
                         startNextLevel(player.getLevel() - 1);
-                        status.setLives(player.getLives());
-                        status.setPoints(player.getPoints());
-                        UI.render(field.getField(), status);
+                        UI.render(field.getField(), player);
                     }
                     else {
                         //TODO:add some end menu or something else
@@ -96,13 +88,9 @@ public class GameEngine {
             player.setPoints(player.getPoints() + field.getPoints());
 
 
-//            status.setPoints(status.getPoints() + 1);
-//            status.setLives(status.getLives() - 1);
-//            UI.render(field.getField(), points);
-
             // Sleep in order to maintain reasonable CPU load
             try {
-                Thread.sleep(25);
+                Thread.sleep(15);
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
