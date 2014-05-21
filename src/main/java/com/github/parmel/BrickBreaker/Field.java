@@ -37,13 +37,15 @@ public class Field {
     }
 
     public boolean isBallOut() {
-
-        return isBallOut;
+        boolean returnValue = isBallOut;
+        isBallOut = false;
+        return returnValue;
     }
 
     public boolean isEndLevel() {
-
-        return isEndLevel;
+        boolean returnValue = isEndLevel;
+        isEndLevel = false;
+        return returnValue;
     }
 
     public byte[][] getField() {
@@ -84,7 +86,10 @@ public class Field {
             return true;
         } else if (ballLastYX[0] == field.length - 2 && field[ballLastYX[0] + 1][ballLastYX[1]] == -2) {
             changeDir(ball);
-        } else {
+        }else if(ballLastYX[0] == 0){
+            reverseDirection(ball);
+        }
+        else {
             if (ballLastYX[0] == 0 ||
                     ballLastYX[1] == 0 ||
                     ballLastYX[1] == field[0].length - 1) {
@@ -117,6 +122,18 @@ public class Field {
         }
 
         return false;
+    }
+
+    private void reverseDirection(Ball ball) {
+        if(ball.getDirection() == Direction.downLeft){
+            ball.setDirection(Direction.upRight);
+        }else if(ball.getDirection() == Direction.upRight){
+            ball.setDirection(Direction.downLeft);
+        }else if(ball.getDirection() == Direction.upLeft){
+            ball.setDirection(Direction.downLeft);
+        }else if(ball.getDirection() == Direction.downLeft){
+            ball.setDirection(Direction.upLeft);
+        }
     }
 
     private void changeDir(Ball ball) {

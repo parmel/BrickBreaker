@@ -1,7 +1,7 @@
 package com.github.parmel.BrickBreaker;
 
 /**
- * Created by sobieski on 5/18/14.
+ * Created by Emrah Bekir on 5/18/14.
  */
 public interface MovebleITems {
     public void move();

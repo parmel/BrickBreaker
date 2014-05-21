@@ -29,7 +29,7 @@ public class GameEngine {
         byte[][] firstLevelField = GetNextLevel.getLevel(1);
         UI = new UserInterface(firstLevelField[0].length, firstLevelField.length);
         terminal = UI.getTerminal();
-        player = new Player(firstLevelField[0].length, firstLevelField.length, 5, firstLevel, terminal);
+        player = new Player(firstLevelField[0].length, firstLevelField.length, 5, firstLevel, terminal,3);
         ball = new Ball(firstLevelField[0].length, firstLevelField.length, Direction.upRight);
         field = new Field(firstLevelField, player, ball);
     }
@@ -69,8 +69,8 @@ public class GameEngine {
                 ball.move();
                 ballSlower = 0;
             }
-            UI.render(field.getField(), status);
-            UI.render(field.getField(), status);
+            status.setLives(player.getLives());
+            status.setPoints(player.getPoints());
             UI.render(field.getField(), status);
             isEndOfGame = field.nextMove(player, ball);
 
@@ -80,7 +80,16 @@ public class GameEngine {
                     startNextLevel(player.getLevel());
                 }
                 if (field.isBallOut()) {
-                    //TODO:add some end menu or something else
+                    if(player.getLives() > 1){
+                        player.setLives(player.getLives() - 1);
+                        startNextLevel(player.getLevel() - 1);
+                        status.setLives(player.getLives());
+                        status.setPoints(player.getPoints());
+                        UI.render(field.getField(), status);
+                    }
+                    else {
+                        //TODO:add some end menu or something else
+                    }
                     ///remove lives
                 }
             }

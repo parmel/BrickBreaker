@@ -15,8 +15,22 @@ public class Player implements MovebleITems {
     private int length;
     private Terminal input;
 
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        if(lives > 0)
+        this.lives = lives;
+        else {
+            throw new IllegalArgumentException("Level must be bigger than zero");
+        }
+    }
+
+    private int lives;
     //TODO: add terminal to read input
-    public Player(int maxX, int maxY, int length, int level, Terminal input) {
+    public Player(int maxX, int maxY, int length, int level, Terminal input, int lives) {
+        this.lives = lives;
         this.length = length;
         this.maxX = maxX;
         this.x = (maxX / 2) - (length / 2);
