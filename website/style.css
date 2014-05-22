@@ -1,0 +1,82 @@
+body {
+    background: #000000;
+    font-variant: small-caps;
+    background-image: url('bg.png');
+    font-size: 17pt;
+}
+#main {
+    text-align: center;
+}
+
+#content, #nav {
+    text-align: left;
+    margin: 0px auto;
+    width: 600px;
+}
+
+.button {
+    text-align: center;
+    width: 150px;
+    float: left;
+    height: 25px;
+    background: url('inactive.png');
+    padding: 19px 0px 11px 0px;
+    cursor: pointer;
+    color: #FFFFFF;
+	font-size: 11pt;
+}
+
+.button:hover {
+    background: url('active.png');
+}
+
+#content {
+    background: #FFFFFF;
+    min-height: 300px;
+    padding: 20px 10px 30px 10px;
+    width: 578px;
+}
+
+.clear {
+    clear: both;
+}
+
+a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.button:hover a {
+    color: yellowgreen;
+}
+
+.fancybox img {
+    max-width: 220px;
+    height: 130px;
+    overflow: hidden;
+}
+
+#download {
+    color: #000000;
+}
+
+#download:hover {
+    color: #555555;
+    border-bottom: 1px dashed #000000;
+}
+
+h2 {
+    color: dodgerblue;
+}
+
+#centered {
+    text-align: center;
+}
+.content{
+	font-size:20px;
+}
+.HomeImg{
+	margin-top:50px;
+	margin-left:166px;
+	width:300px;
+}
