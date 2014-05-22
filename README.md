@@ -7,7 +7,7 @@ BrickBreaker is console implementation of the popular old brick breaking game. I
 
 ### Windows, Linux, OS X and others...
 
-* Download the [BrickBreaker.jar](#) and start it with the command: ``java -jar BrickBreaker.jar`` or double click on Windows and OS X.
+* Download the [BrickBreaker.jar](http://brickbreaker.us.to/BrickBreaker.jar) and start it with the command: ``java -jar BrickBreaker.jar`` or double click on Windows and OS X.
 
 ## Gameplay
 
