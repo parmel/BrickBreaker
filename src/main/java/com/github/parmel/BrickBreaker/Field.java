@@ -54,11 +54,14 @@ public class Field {
 
     private void putInField(byte player, byte ball) {
         this.field[ballLastYX[0]][ballLastYX[1]] = ball;
-        for (int i = playerLastYX[1]; i < playerLastYX[1] + playerLength; i++) {
-            this.field[playerLastYX[0]][i] = player;
+        for (int i = 0; i < field[0].length; i++) {
+        	if (i >= playerLastYX[1] && i < (playerLastYX[1] + playerLength)) {
+        		this.field[playerLastYX[0]][i] = player;
+        	} else {
+        		this.field[playerLastYX[0]][i] = 0;
+        	}
         }
     }
-
 
     public boolean nextMove(Player player, Ball ball) {
         //Clear old place of ball and player
@@ -265,6 +268,5 @@ public class Field {
         this.ballLastYX = ball.getYX();
         this.playerLastYX = player.getYX();
     }
-
 
 }

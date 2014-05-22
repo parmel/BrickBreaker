@@ -9,7 +9,7 @@ import java.util.Arrays;
 /**
  * Created by Grigor Yosifov on 5/15/2014.
  */
-public class UserInterface {
+public class GUI {
 
     public static final short offsetX = 2, offsetY = 3;
 
@@ -19,7 +19,7 @@ public class UserInterface {
 
     private Terminal terminal;
 
-    public UserInterface(int width, int height) {
+    public GUI(int width, int height) {
         this.width = (short) width;
         this.height = (short) height;
         initPreviousUiData();
@@ -41,6 +41,15 @@ public class UserInterface {
         }
         redrawChangedUiData(uiData);
     }
+
+	public void messageBox(String message) {
+		byte x = (byte)((offsetX * 2 + width + 9) / 2);
+		byte y = (byte)((offsetY * 2 + height - 2) / 2);
+        terminal.moveCursor(x, y);
+        for (char ch : message.toCharArray()) {
+            terminal.putCharacter(ch);
+        }
+	}
 
     public Terminal getTerminal() {
         return terminal;
@@ -102,7 +111,6 @@ public class UserInterface {
                 }
             }
         }
-        //byte[][] this.previousUiData = uiData;
         previousUiData = deepCopy(uiData);
     }
 

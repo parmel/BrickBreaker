@@ -103,6 +103,7 @@ public class GetNextLevel {
     public static byte[][] getLevel(int level) {
         switch (level) {
             case 1:
+            	// using testLevel to start from level 2 for the presentation
                 return testLevel;
             case 2:
                 return level2;
