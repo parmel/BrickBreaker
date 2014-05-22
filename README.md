@@ -37,5 +37,4 @@ http://www.brickbreaker.com/
 ## Team (alphabetically)
 * Emrah - game logic
 * Grigor - user interface and technical docs
-* Samuil - website
 * Yuliyan - game story, user docs and website
