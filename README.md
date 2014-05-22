@@ -12,7 +12,7 @@ BrickBreaker is console implementation of the popular old brick breaking game. I
 ## Gameplay
 
 Up to date instructions can be found at the official website:
-http://www.brickbreaker.com/
+http://brickbreaker.us.to/
 
 ## Development Setup (using Eclipse and Apache Maven)
 
